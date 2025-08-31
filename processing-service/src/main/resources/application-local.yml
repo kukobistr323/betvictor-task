@@ -1,0 +1,28 @@
+logging:
+  level:
+    root: INFO
+    com.example: DEBUG
+
+spring:
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9093}
+    producer:
+      acks: all
+      properties:
+        enable.idempotence: true
+        max.in.flight.requests.per.connection: 1
+        spring.json.add.type.headers: false
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+app:
+  hipsum:
+    base-url: https://hipsum.co
+    type: hipster-centric
+    parallelism: 4
+    connect-timeout-ms: 5000
+    read-timeout-ms: 15000
+    overall-timeout-ms: 20000
+    retries: 1
+  kafka:
+    topic: words.processed
