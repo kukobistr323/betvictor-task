@@ -1,4 +1,4 @@
-# BetVictor Task – Java Software Engineer
+# Word Counter Task – Java Software Engineer
 
 This project is an implementation of a coding task for a Java Software Engineer position.  
 It consists of two Spring Boot services that communicate via Kafka:
