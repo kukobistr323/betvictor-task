@@ -6,13 +6,13 @@
 
   <parent>
     <groupId>com.example</groupId>
-    <artifactId>betvictor-task</artifactId>
+    <artifactId>word-counter-task</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>processing-service</artifactId>
   <name>processing-service</name>
-  <description>Generates text, computes metrics, publishes to Kafka, exposes /betvictor/text</description>
+  <description>Generates text, computes metrics, publishes to Kafka, exposes /counter/text</description>
 
   <dependencies>
     <!-- App -->

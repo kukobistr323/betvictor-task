@@ -60,7 +60,7 @@ class HistoryControllerTest {
         MockMvc mvc = MockMvcBuilders.standaloneSetup(controller).build();
 
         // then: verify snake_case in JSON (Jackson @JsonNaming on DTO)
-        mvc.perform(get("/betvictor/history").accept(MediaType.APPLICATION_JSON))
+        mvc.perform(get("/counter/history").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].freq_word").value("hipster"))
                 .andExpect(jsonPath("$[0].avg_paragraph_size").value(10.0))

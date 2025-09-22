@@ -12,7 +12,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/betvictor")
+@RequestMapping("/counter")
 @RequiredArgsConstructor
 public class HistoryController {
 

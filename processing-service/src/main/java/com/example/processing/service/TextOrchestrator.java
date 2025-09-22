@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Slf4j
 @Service
@@ -31,15 +31,14 @@ public class TextOrchestrator {
         Instant t0 = Instant.now();
 
         // submit p parallel tasks
-        List<CompletableFuture<ParagraphStats>> futures = new ArrayList<>(p);
-        for (int i = 1; i <= p; i++) {
-            final int idx = i;
-            futures.add(CompletableFuture.supplyAsync(() -> {
-                // fetch → analyze inside the worker thread
-                String paragraph = fetcher.fetchOne(idx);
-                return analyzer.analyze(idx, paragraph);
-            }, analysisExecutor));
-        }
+        List<CompletableFuture<ParagraphStats>> futures = IntStream.range(0, p)
+                .mapToObj(idx ->
+                        CompletableFuture.supplyAsync(() -> {
+                            // fetch → analyze inside the worker thread
+                            String paragraph = fetcher.fetchOne(idx);
+                            return analyzer.analyze(idx, paragraph);
+                        }, analysisExecutor))
+                .toList();
 
         // wait for all tasks
         List<ParagraphStats> stats = CompletableFuture

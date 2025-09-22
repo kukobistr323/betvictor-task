@@ -18,7 +18,7 @@ Client -> processing-service -> Kafka -> repository-service -> PostgreSQL
 ```
 
 - **processing-service**
-    - `/betvictor/text?p=N` endpoint
+    - `/counter/text?p=N` endpoint
     - Calls hipsum.co `N` times (in parallel), computes:
         - most frequent word
         - average paragraph size
@@ -29,7 +29,7 @@ Client -> processing-service -> Kafka -> repository-service -> PostgreSQL
 - **repository-service**
     - Consumes messages from Kafka (`words.processed`)
     - Persists them into PostgreSQL (with Liquibase-managed schema)
-    - Exposes `/betvictor/history` to return the last 10 records in JSON (snake_case).
+    - Exposes `/counter/history` to return the last 10 records in JSON (snake_case).
 
 ---
 
@@ -81,7 +81,7 @@ It will start on port `8081`.
 ### Request text processing
 
 ```bash
-curl "http://localhost:8080/betvictor/text?p=3"
+curl "http://localhost:8080/counter/text?p=3"
 ```
 
 Example response:
@@ -100,7 +100,7 @@ The same payload is published to Kafka (`words.processed`).
 ### Get processing history
 
 ```bash
-curl "http://localhost:8081/betvictor/history"
+curl "http://localhost:8081/counter/history"
 ```
 
 Example response (last 10 records):
