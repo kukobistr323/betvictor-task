@@ -1,0 +1,52 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-init
+      author: you
+      changes:
+        - createTable:
+            tableName: history
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: freq_word
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: avg_paragraph_size
+                  type: numeric
+                  constraints:
+                    nullable: false
+              - column:
+                  name: avg_paragraph_processing_time
+                  type: numeric
+                  constraints:
+                    nullable: false
+              - column:
+                  name: total_processing_time
+                  type: numeric
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamptz
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+        - createIndex:
+            tableName: history
+            indexName: idx_history_created_at
+            columns:
+              - column:
+                  name: created_at
+        - createIndex:
+            tableName: history
+            indexName: idx_history_freq_word
+            columns:
+              - column:
+                  name: freq_word
